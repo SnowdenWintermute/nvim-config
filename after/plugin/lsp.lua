@@ -8,6 +8,12 @@ lsp.ensure_installed ({
 })
 
 local cmp = require('cmp')
+require("luasnip.loaders.from_vscode").lazy_load()
+-- require('luasnip').filetype_extend("javascript", { "javascriptreact" })
+require("luasnip.loaders.from_vscode").lazy_load { paths = { "./snippets/typescript" } }
+
+
+-- require('luasnip').filetype_extend("javascript", { "html" })
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 cmp.setup {
   mapping = cmp.mapping.preset.insert({
@@ -35,6 +41,8 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   }),
+  sources = { { name = 'nvim_lsp' }, { name = 'luasnip' } },
+  
 }
 --local cmp_mappings = lsp.defaults.cmp_mappings({
 --	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),

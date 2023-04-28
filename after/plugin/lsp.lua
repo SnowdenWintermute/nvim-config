@@ -12,7 +12,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- require('luasnip').filetype_extend("javascript", { "javascriptreact" })
 require("luasnip.loaders.from_vscode").lazy_load { paths = { "./snippets/typescript" } }
 
-
+local luasnip = require("luasnip")
 -- require('luasnip').filetype_extend("javascript", { "html" })
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 cmp.setup {

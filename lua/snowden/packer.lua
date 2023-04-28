@@ -42,14 +42,14 @@ return require('packer').startup(function(use)
   }
 }
 
-
-use({
-	"lewpoly/sherbet.nvim",
-	as = "sherbet",
-	config = function()
-		vim.cmd("colorscheme sherbet")
-	end
-})
+use 'Mofiqul/vscode.nvim'
+--use({
+--	"lewpoly/sherbet.nvim",
+--	as = "sherbet",
+--	config = function()
+--		vim.cmd("colorscheme sherbet")
+--	end
+--})
 
 use('ThePrimeagen/vim-be-good')
 use {
@@ -59,5 +59,5 @@ use {
 }
 
 --use('sbdchd/neoformat')
-
+use 'tpope/vim-commentary'
 end)

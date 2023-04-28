@@ -60,4 +60,5 @@ use {
 
 --use('sbdchd/neoformat')
 use 'tpope/vim-commentary'
+use 'tpope/vim-surround'
 end)

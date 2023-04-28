@@ -3,3 +3,4 @@ require("snowden.set")
 
 --vim.cmd "colorscheme blue"
 vim.cmd "colorscheme vscode"
+vim.cmd "set cc="

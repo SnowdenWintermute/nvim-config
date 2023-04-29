@@ -42,7 +42,7 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
-vim.keymap.set("i", "{", "{}<Esc>ha")
+--vim.keymap.set("i", "{", "{}<Esc>ha")
 --vim.keymap.set("i", "(", "()<Esc>ha")
 --vim.keymap.set("i", "[", "[]<Esc>ha")
 --vim.keymap.set("i", '"', '""<Esc>ha')

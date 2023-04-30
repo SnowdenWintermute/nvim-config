@@ -41,8 +41,8 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   }),
-  sources = { { name = 'nvim_lsp' }, { name = 'luasnip' } },
-  
+  sources = { { name = 'nvim_lsp' }, { name = 'luasnip' }, {name = 'nvim_lsp_signature_help'} },
+
 }
 --local cmp_mappings = lsp.defaults.cmp_mappings({
 --	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),

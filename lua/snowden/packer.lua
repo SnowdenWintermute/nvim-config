@@ -39,6 +39,7 @@ return require('packer').startup(function(use)
   {'L3MON4D3/LuaSnip'},     -- Required
   {'saadparwaiz1/cmp_luasnip'},
   {'rafamadriz/friendly-snippets'},
+  {'hrsh7th/cmp-nvim-lsp-signature-help'},
   {'m4xshen/autoclose.nvim'}
   }
 }

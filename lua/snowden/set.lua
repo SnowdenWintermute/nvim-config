@@ -33,6 +33,8 @@ vim.g.mapleader = " "
 
 vim.cmd [[let g:prettier#quickfix_enabled = 0
 
+command! W write
+
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html, PrettierAsync]]
 
 -- Fixed column for diagnostics to appear

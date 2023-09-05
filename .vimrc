@@ -57,3 +57,4 @@ endif
 let g:neoformat_try_formatprg = 1
 set colorcolumn=""
 
+command! W write

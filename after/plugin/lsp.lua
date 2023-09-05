@@ -1,31 +1,15 @@
 local lsp = require("lsp-zero")
-
 lsp.preset("recommended")
-
 lsp.ensure_installed ({
 	"tsserver",
 	"eslint",
-  "cssls"
+  "cssls",
 })
 
 local cmp = require('cmp')
-require("luasnip.loaders.from_vscode").lazy_load()
--- require('luasnip').filetype_extend("javascript", { "javascriptreact" })
 require("luasnip.loaders.from_vscode").lazy_load { paths = { "./snippets/typescript" } }
-require'lspconfig'.pylsp.setup{
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          ignore = {'W391'},
-          maxLineLength = 100
-        }
-      }
-    }
-  }
-}
+
 local luasnip = require("luasnip")
--- require('luasnip').filetype_extend("javascript", { "html" })
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 cmp.setup {
   mapping = cmp.mapping.preset.insert({
@@ -53,15 +37,25 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   }),
-  sources = { { name = 'nvim_lsp' }, { name = 'luasnip' }, {name = 'nvim_lsp_signature_help'} },
-
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'nvim_lsp_signature_help'},
+    { name = 'path' },                              -- file paths
+    { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
+    { name = 'nvim_lua', keyword_length = 2},       -- complete neovim's Lua runtime API such vim.lsp.*
+    { name = 'buffer', keyword_length = 2 },        -- source current buffer
+    { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip 
+    { name = 'calc'},                               -- source for math calculation
+  },
 }
---local cmp_mappings = lsp.defaults.cmp_mappings({
---	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
---	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
---	['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
---	["<C-Space>"] = cmp.mapping.complete(),
---})
+
+local cmp_mappings = lsp.defaults.cmp_mappings({
+	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+	['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+	["<C-Space>"] = cmp.mapping.complete(),
+})
 
 lsp.set_preferences({
 	sign_icons = { }

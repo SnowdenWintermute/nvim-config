@@ -4,6 +4,7 @@ lsp.ensure_installed ({
 	"tsserver",
 	"eslint",
   "cssls",
+  "tailwindcss"
 })
 
 local cmp = require('cmp')
@@ -82,4 +83,27 @@ vim.diagnostic.config({
     virtual_text = true
 })
 
-require("autoclose").setup()
+require 'lspconfig'.tailwindcss.setup {
+  -- capabilities = Capabilities,
+ -- There add every filetype you want tailwind to work on
+  filetypes = {
+    "css",
+    "scss",
+    "sass",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "rust",
+  },
+  init_options = {
+    -- There you can set languages to be considered as different ones by tailwind lsp I guess same as includeLanguages in VSCod
+    userLanguages = {
+      rust = "html",
+    },
+  },
+  -- Here If any of files from list will exist tailwind lsp will activate.
+  root_dir = require 'lspconfig'.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
+    'postcss.config.ts', 'windi.config.ts'),
+}

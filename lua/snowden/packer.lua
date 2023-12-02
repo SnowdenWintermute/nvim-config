@@ -4,8 +4,10 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
   use('wbthomason/packer.nvim') -- package manager
-  use {'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { {'nvim-lua/plenary.nvim'} }} -- fuzzy finder
-  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}) -- syntax highlighting
+  -- use {'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { {'nvim-lua/plenary.nvim'} }} -- fuzzy finder
+  use {'nvim-telescope/telescope.nvim', tag = '0.1.4', requires = { {'nvim-lua/plenary.nvim'} }} -- fuzzy finder
+  -- use {'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} }} -- fuzzy finder
+  use {'nvim-treesitter/nvim-treesitter', tag = 'v0.9.1', {run = ':TSUpdate'}} -- syntax highlighting
   use('theprimeagen/harpoon') -- tag files for quick access
   use('mbbill/undotree') -- detailed tree of file changes
   use('tpope/vim-commentary') -- allows commenting out/in with shortcuts

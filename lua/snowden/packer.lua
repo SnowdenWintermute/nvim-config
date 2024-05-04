@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
   use {
     'prettier/vim-prettier',
     run = 'yarn install',
-    ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'graphql', 'markdown', 'vue', 'html', 'python'}
+    ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'graphql', 'markdown', 'vue', 'html', 'python', 'typescriptreact', 'javascriptreact'}
   }
   use {
     'VonHeikemen/lsp-zero.nvim',

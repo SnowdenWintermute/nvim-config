@@ -35,7 +35,7 @@ vim.cmd [[let g:prettier#quickfix_enabled = 0
 
 command! W write
 
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html, PrettierAsync]]
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html,*.json, PrettierAsync]]
 
 -- Fixed column for diagnostics to appear
 -- Show autodiagnostic popup on cursor hover_range

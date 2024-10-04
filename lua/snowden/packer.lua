@@ -18,8 +18,33 @@ return require('packer').startup(function(use)
   use {
     'prettier/vim-prettier',
     run = 'yarn install',
-    ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'graphql', 'markdown', 'vue', 'html', 'python', 'typescriptreact', 'javascriptreact'}
+    ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'graphql', 'markdown', 'json','vue', 'html', 'python', 'typescriptreact', 'javascriptreact'}
   }
+  -- use { 'mfussenegger/nvim-lint',
+  -- event = {
+  --   "BufReadPre",
+  --   "BufNewFile",
+  -- },
+  -- config = function()
+  --   local lint = require("lint")
+
+  --   lint.linters_by_ft = {
+  --     javascript = { "eslint-lsp" },
+  --     typescript = { "eslint-lsp" },
+  --     javascriptreact = { "eslint-lsp" },
+  --     typescriptreact = { "eslint-lsp" },
+  --   }
+
+  --   local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+  --   vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+  --     group = lint_augroup,
+  --     callback = function()
+  --       lint.try_lint()
+  --     end,
+  --   })
+  -- end,
+-- }
   use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',

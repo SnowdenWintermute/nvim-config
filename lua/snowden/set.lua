@@ -37,11 +37,11 @@ command! W write
 
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html,*.json, PrettierAsync]]
 
--- Fixed column for diagnostics to appear
--- Show autodiagnostic popup on cursor hover_range
--- Goto previous / next diagnostic warning / error 
--- Show inlay_hints more frequently 
--- vim.cmd([[
--- set signcolumn=yes
--- autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
--- ]])
+-- Format .cs files with OmniSharp
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.cs",
+    callback = function()
+        -- Trigger OmniSharp LSP format
+        vim.lsp.buf.format()
+    end
+})

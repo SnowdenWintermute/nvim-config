@@ -56,5 +56,9 @@ endif
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
 set colorcolumn=""
+" for omnisharp
+let g:OmniSharp_server_use_mono = 1
+let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_msbuild_override = $HOME . "/.dotnet/sdk/9.0.201/MSBuild.dll"
 
 command! W write

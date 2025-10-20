@@ -7,7 +7,8 @@ return require('packer').startup(function(use)
   -- use {'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { {'nvim-lua/plenary.nvim'} }} -- fuzzy finder
   use {'nvim-telescope/telescope.nvim', tag = '0.1.4', requires = { {'nvim-lua/plenary.nvim'} }} -- fuzzy finder
   -- use {'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} }} -- fuzzy finder
-  use {'nvim-treesitter/nvim-treesitter', tag = 'v0.9.1', {run = ':TSUpdate'}} -- syntax highlighting
+  -- use {'nvim-treesitter/nvim-treesitter', tag = 'v0.9.1', {run = ':TSUpdate'}} -- syntax highlighting
+  use {'nvim-treesitter/nvim-treesitter'} -- syntax highlighting
   use('theprimeagen/harpoon') -- tag files for quick access
   use('mbbill/undotree') -- detailed tree of file changes
   use('tpope/vim-commentary') -- allows commenting out/in with shortcuts
@@ -18,33 +19,10 @@ return require('packer').startup(function(use)
   use {
     'prettier/vim-prettier',
     run = 'yarn install',
-    ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'graphql', 'markdown', 'json','vue', 'html', 'python', 'typescriptreact', 'javascriptreact'}
+    ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'graphql', 'markdown', 'json','vue', 'html','cshtml', 'python', 'typescriptreact', 'javascriptreact'}
   }
-  -- use { 'mfussenegger/nvim-lint',
-  -- event = {
-  --   "BufReadPre",
-  --   "BufNewFile",
-  -- },
-  -- config = function()
-  --   local lint = require("lint")
 
-  --   lint.linters_by_ft = {
-  --     javascript = { "eslint-lsp" },
-  --     typescript = { "eslint-lsp" },
-  --     javascriptreact = { "eslint-lsp" },
-  --     typescriptreact = { "eslint-lsp" },
-  --   }
 
-  --   local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-
-  --   vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-  --     group = lint_augroup,
-  --     callback = function()
-  --       lint.try_lint()
-  --     end,
-  --   })
-  -- end,
--- }
   use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
@@ -72,5 +50,6 @@ return require('packer').startup(function(use)
       {'hrsh7th/cmp-nvim-lsp-signature-help'},
   }
 }
+
 end
 )

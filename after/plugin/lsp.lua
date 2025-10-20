@@ -4,11 +4,26 @@ lsp.ensure_installed ({
 	"ts_ls",
 	"eslint",
   "cssls",
-  "tailwindcss"
+  "tailwindcss",
+  "omnisharp",
 })
 
 local cmp = require('cmp')
 require("luasnip.loaders.from_vscode").lazy_load { paths = { "./snippets/typescript" } }
+
+-- C#
+-- need to install omnisharp with MasonInstall first
+require'lspconfig'.omnisharp.setup{
+    cmd = { "/home/mike/.local/share/nvim/mason/packages/omnisharp/omnisharp" },
+    enable_import_completion = true,
+    enable_roslyn_analyzers = true,
+    analyze_open_documents_only = true,
+    enable_razor_support = true,
+    root_dir = require'lspconfig'.util.root_pattern("*.sln", "*.csproj", ".git"),
+    filetypes = {"cs", "html"},  
+}
+
+--- end C#
 
 local luasnip = require("luasnip")
 local cmp_select = {behavior = cmp.SelectBehavior.Select}

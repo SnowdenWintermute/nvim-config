@@ -122,3 +122,13 @@ require 'lspconfig'.tailwindcss.setup {
   root_dir = require 'lspconfig'.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
     'postcss.config.ts', 'windi.config.ts'),
 }
+
+-- GODOT LSP AND AUTOFORMAT
+require'lspconfig'.gdscript.setup({
+    cmd = { "nc", "localhost", "6005" },  -- Godot must be running and LSP enabled
+    filetypes = { "gd", "gdscript" },
+    root_dir = require'lspconfig'.util.root_pattern("project.godot"),
+    single_file_support = true,
+})
+
+

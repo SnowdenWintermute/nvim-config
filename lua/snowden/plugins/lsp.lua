@@ -37,17 +37,26 @@ return {
 
       vim.lsp.config("*", { capabilities = capabilities })
 
+      -- Razor co-hosting: roslyn.nvim delegates the HTML regions of a .razor
+      -- file to a client literally named "html", but never starts one itself.
+      -- Without razor here, formatting and completion in .razor silently fail.
+      vim.lsp.config("html", {
+        filetypes = { "html", "razor" },
+      })
+
+      -- lspconfig's defaults already list razor and every other template
+      -- filetype, and already fall back to .git as a project root for Tailwind
+      -- v4, which has no tailwind.config.*. Only rust is missing. Read the
+      -- defaults before overriding them, or this picks up its own output.
+      local tailwind_filetypes = vim.deepcopy(vim.lsp.config.tailwindcss.filetypes)
+      if not vim.tbl_contains(tailwind_filetypes, "rust") then
+        table.insert(tailwind_filetypes, "rust")
+      end
+
       vim.lsp.config("tailwindcss", {
-        filetypes = {
-          "css", "scss", "sass", "html", "javascript", "javascriptreact",
-          "typescript", "typescriptreact", "rust",
-        },
+        filetypes = tailwind_filetypes,
         init_options = {
           userLanguages = { rust = "html" },
-        },
-        root_markers = {
-          "tailwind.config.js", "tailwind.config.ts",
-          "postcss.config.js", "postcss.config.ts", "windi.config.ts",
         },
       })
 

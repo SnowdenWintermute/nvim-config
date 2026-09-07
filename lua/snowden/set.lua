@@ -97,7 +97,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = format_group,
   pattern = { "*.cs", "*.razor", "*.rs" },
-  callback = function()
-    vim.lsp.buf.format({ timeout_ms = 2000 })
+  callback = function(args)
+    -- Without this guard, a buffer whose clients cannot format blocks for the
+    -- full timeout on every save.
+    local clients = vim.lsp.get_clients({ bufnr = args.buf, method = "textDocument/formatting" })
+    if #clients == 0 then
+      return
+    end
+
+    -- In .razor buffers html is attached only to serve roslyn's co-hosting.
+    -- It also advertises formatting, and formatting razor with it silently
+    -- rewrites `href="@Assets["app.css"]"` to `@Assets[" app.css"]` -- any C#
+    -- string nested in an attribute. Never let it format razor, even while
+    -- roslyn is still loading the solution.
+    local is_razor = vim.bo[args.buf].filetype == "razor"
+    vim.lsp.buf.format({
+      timeout_ms = 2000,
+      filter = function(c) return not (is_razor and c.name == "html") end,
+    })
   end,
 })

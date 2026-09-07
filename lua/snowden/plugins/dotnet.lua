@@ -40,6 +40,33 @@ return {
         end
         return document
       end
+
+      -- Razor cohosting sometimes answers textDocument/diagnostic with an item
+      -- whose range failed to map from the generated C#/HTML document back to
+      -- the .razor file. The JSON null arrives as vim.NIL, and the stock
+      -- handler indexes diagnostic.range unconditionally
+      -- (runtime/lua/vim/lsp/diagnostic.lua:99), so one bad item throws and
+      -- every diagnostic in that response is dropped. Filter them out first.
+      local methods = vim.lsp.protocol.Methods
+      local pull_diagnostics = vim.lsp.handlers[methods.textDocument_diagnostic]
+      local function keep_mapped(items)
+        return vim.tbl_filter(function(item)
+          return type(item) == "table" and type(item.range) == "table"
+        end, items or {})
+      end
+      vim.lsp.handlers[methods.textDocument_diagnostic] = function(err, result, ctx, config)
+        if type(result) == "table" then
+          if result.items then
+            result.items = keep_mapped(result.items)
+          end
+          for _, related in pairs(result.relatedDocuments or {}) do
+            if related.items then
+              related.items = keep_mapped(related.items)
+            end
+          end
+        end
+        return pull_diagnostics(err, result, ctx, config)
+      end
     end,
   },
 }

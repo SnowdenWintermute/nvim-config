@@ -20,5 +20,26 @@ return {
       -- still finds the solution above it.
       broad_search = true,
     },
+    config = function(_, opts)
+      require("roslyn").setup(opts)
+
+      -- roslyn.nvim backs each .razor file with a virtual html buffer, and fills
+      -- it via nvim_buf_set_lines. That loads the buffer, which normally fires
+      -- BufNewFile and detects the filetype -- but autocommands do not nest, so
+      -- when the buffer is first created from inside our BufWritePre format hook
+      -- the filetype stays empty and the html client never attaches to it. Every
+      -- html request roslyn forwards after that spends the document manager's
+      -- full 5s client wait and then returns no edits, so the save hangs and the
+      -- file comes out unformatted, for the rest of the session.
+      local document_manager = require("roslyn.razor.documentManager")
+      local update_document_text = document_manager.updateDocumentText
+      document_manager.updateDocumentText = function(self, uri, checksum, content)
+        local document = update_document_text(self, uri, checksum, content)
+        if vim.bo[document.buf].filetype ~= "html" then
+          vim.bo[document.buf].filetype = "html"
+        end
+        return document
+      end
+    end,
   },
 }
